@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/metadata', metadataRouter);
 // app.use('/evaluacion/pregunta', preguntasRouter);
-app.use('/healthcheck', healthcheckRouter);
+app.use('/empresa/healthcheck', healthcheckRouter);
 
 
 // catch 404 and forward to error handler
