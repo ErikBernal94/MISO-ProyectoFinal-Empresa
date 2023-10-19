@@ -103,14 +103,7 @@ spec:
           service:
             name: servicio-registro
             port: 
-              number: 80
-      - pathType: Prefix
-        path: /empresa
-        backend:
-          service:
-            name: servicio-empresa
-            port: 
-              number: 80              
+              number: 80             
       - pathType: Prefix
         path: /evaluacion
         backend:
