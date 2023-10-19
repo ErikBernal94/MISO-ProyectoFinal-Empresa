@@ -15,11 +15,11 @@ metadata:
     app: empresa
 # Especificaciones del elemento
 spec:
-  replicas: 2
+  replicas: 1
   # K8s agrupa los elementos del Deployment y los interconecta entre si utilizando etiquetas
   # Aqui definimos como seleccionar los elementos juntos
   selector:
-    # En este caso va a seleccionar aquellos que coincidan con el nombre del deploy
+    # En este caso va a seleccionar aquellos que coincidan con el nombre del  deploy
     matchLabels:
       app: empresa
 
@@ -33,10 +33,10 @@ spec:
       # Declaracion de contenedores
       # name: Nombre del contenedor
       # image: Nombre de la imagen, por defecto buscara en Docker Hub o en el repositorio privado
-      #        configurado en K8s
+      #        configurado en K8s 
       containers:
-        - name: empresa
-          image: us-central1-docker.pkg.dev/abc-jobs-cicd/repository-empresa/job-cloudbuild:dc4b86b
+        - name: job-cloudbuild
+          image: us-central1-docker.pkg.dev/abc-jobs-cicd/repository-empresa/job-cloudbuild:976723d
           resources:
             requests:
               memory: "64Mi"
@@ -44,20 +44,10 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-          env:
-            - name: "SQLALCHEMY_DATABASE_URI"
-              valueFrom:
-                secretKeyRef:
-                  name: appsecrets 
-                  key: uri
           ports:
             - containerPort: 3000
           # Realizar pull siempre a la imagen
           imagePullPolicy: Always
-      volumes:
-        - name: appsecrets-volume
-          secret:
-            secretName: appsecrets
 
 # Vamos a especificar el balanceador de carga en este mismo archivo
 # para ello vamos a crear otro documento separado, esto se hace con el operador "---"
@@ -65,7 +55,7 @@ spec:
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: empresa-config
+  name: candidato-config
 spec:
   healthCheck:
     checkIntervalSec: 30
@@ -87,7 +77,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 3000
-      nodePort: 31018
+      nodePort: 31021
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -101,10 +91,31 @@ spec:
   - http:
       paths:
       - pathType: Prefix
+        path: /candidato
+        backend:
+          service:
+            name: servicio-candidato
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: /registro
+        backend:
+          service:
+            name: servicio-registro
+            port: 
+              number: 80
+      - pathType: Prefix
         path: /empresa
         backend:
           service:
             name: servicio-empresa
+            port: 
+              number: 80              
+      - pathType: Prefix
+        path: /evaluacion
+        backend:
+          service:
+            name: servicio-evaluacion
             port: 
               number: 80
       
