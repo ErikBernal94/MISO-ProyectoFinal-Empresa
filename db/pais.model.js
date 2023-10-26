@@ -11,6 +11,9 @@ const pais = sequelize.define('pais', {
     },
     pais: {
         type: DataTypes.STRING
+    },
+    pais_en: {
+        type: DataTypes.STRING
     }
   }, {
     tableName: 'pais',

@@ -9,13 +9,23 @@ class MetadataData {
     }
 
     obtener(language) {
-        const filter = `descripcion${language ? '_' + language : ''}`;
+        const filter_negocio = `descripcion${language ? '_' + language : ''}`;
+        const filter_empresa= `tipo_empresa${language ? '_' + language : ''}`;
+        const filter_pais= `pais${language ? '_' + language : ''}`;
 
         return new Promise(async (resolve,reject)=>{
             let metadata = {
-                areas_negocio : await areaNegocio.findAll({attributes: [filter]}),
-                tipos_empresa: await tipoEmpresa.findAll(),
-                paises: await pais.findAll({include: ciudad}) 
+                areas_negocio : await areaNegocio.findAll({attributes: ['id',   filter_negocio]}),
+                tipos_empresa: await tipoEmpresa.findAll({attributes: ['id', filter_empresa]}),
+                paises: await pais.findAll({
+                    attributes: ["id", filter_pais],
+                    include: [
+                        {
+                          model: ciudad,
+                          attributes: ["id", "ciudad", "id_pais"],
+                        },
+                      ],
+                    }) 
             }
             resolve(metadata);
         });
