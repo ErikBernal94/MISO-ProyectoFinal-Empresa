@@ -30,7 +30,7 @@ const metadata = {
         {
             id: 1,
             pais: "Colombia",
-            ciudads: [
+            ciudad: [
                 {
                     id: 1,
                     ciudad: "Bogotá",
@@ -46,7 +46,7 @@ const metadata = {
         {
             id: 2,
             pais: "USA",
-            ciudads: [
+            ciudad: [
                 {
                     id: 3,
                     ciudad: "New York",

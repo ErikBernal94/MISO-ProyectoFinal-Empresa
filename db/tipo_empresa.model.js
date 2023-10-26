@@ -10,6 +10,9 @@ const tipoEmpresa = sequelize.define('tipoEmpresa', {
     },
     tipo_empresa: {
         type: DataTypes.STRING
+    },
+    tipo_empresa_en: {
+        type: DataTypes.STRING
     }
   }, {
     tableName: 'tipo_empresa',
