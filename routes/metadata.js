@@ -5,7 +5,8 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', async function(req, res) {
-    var result = await logicaMetadata.obtener();
+    const language = req.query.language;
+    const result = await logicaMetadata.obtener(language);
     if(!result){
         res.status(400).send();    
     }

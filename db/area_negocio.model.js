@@ -10,6 +10,9 @@ const areaNegocio = sequelize.define('areaNegocio', {
     },
     descripcion: {
         type: DataTypes.STRING
+    },
+    descripcion_en: {
+        type: DataTypes.STRING
     }
   }, {
     tableName: 'area_negocio',

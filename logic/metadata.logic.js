@@ -1,13 +1,13 @@
 const metadataData = require('../data/metadata.data');
 
 class MetadataLogic {
-    constructor(){
+    constructor() {
 
     }
 
-    obtener(){
-        return new Promise(async (resolve,reject)=>{
-            var metadata = await metadataData.obtener();
+    obtener(language) {
+        return new Promise(async (resolve, reject) => {
+            var metadata = await metadataData.obtener(language);
             resolve(metadata);
         })
     }
