@@ -15,10 +15,10 @@ class MetadataData {
 
         return new Promise(async (resolve,reject)=>{
             let metadata = {
-                areas_negocio : await areaNegocio.findAll({attributes: ['id',   filter_negocio]}),
-                tipos_empresa: await tipoEmpresa.findAll({attributes: ['id', filter_empresa]}),
+                areas_negocio : await areaNegocio.findAll({attributes: ['id',   [filter_negocio, 'descripcion']]}),
+                tipos_empresa: await tipoEmpresa.findAll({attributes: ['id', [filter_empresa, 'tipo_empresa']]}),
                 paises: await pais.findAll({
-                    attributes: ["id", filter_pais],
+                    attributes: ["id", [filter_pais, 'pais']],
                     include: [
                         {
                           model: ciudad,
