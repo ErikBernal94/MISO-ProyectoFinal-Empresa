@@ -9,7 +9,6 @@ var metadataRouter = require('./routes/metadata');
 var healthcheckRouter = require('./routes/healthcheck');
 var empresaRouter = require('./routes/empresa');
 const proyectoRouter = require('./routes/proyecto');
-var validateToken = require('./routes/validate-token')
 
 var app = express();
 
@@ -24,10 +23,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/empresa/metadata', validateToken,  metadataRouter);
-app.use('/empresa',validateToken, empresaRouter);
+app.use('/empresa/metadata', metadataRouter);
+app.use('/empresa', empresaRouter);
 app.use('/empresa/healthcheck', healthcheckRouter);
-app.use('/empresa/proyecto', validateToken, proyectoRouter);
+app.use('/empresa/proyecto',  proyectoRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
