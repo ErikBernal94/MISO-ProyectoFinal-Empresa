@@ -165,3 +165,33 @@ ALTER TABLE empresa.area_negocio_empresa ADD CONSTRAINT empresa_fk FOREIGN KEY (
 
 ALTER TABLE empresa.ciudad_empresa ADD CONSTRAINT ciudad_empresa_fk FOREIGN KEY (id_ciudad) REFERENCES metadata.ciudad(id);
 ALTER TABLE empresa.ciudad_empresa ADD CONSTRAINT empresa_fk FOREIGN KEY (id_empresa) REFERENCES empresa.empresa(id);
+
+
+CREATE TABLE empresa.proyecto (
+	id serial4 NOT NULL,
+	nombre varchar NOT NULL,
+	descripcion varchar NULL,
+	id_estado int4 NOT NULL,
+	CONSTRAINT proyecto_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE empresa.proyecto_habilidad_tecnica (
+	id serial4 NOT NULL,
+	id_habilidad_tecnica int4 NOT NULL,
+	id_proyecto int4 NOT NULL,
+	CONSTRAINT habilidadtecnicaproyecto_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE empresa.proyecto_habilidad_tecnica (
+	id serial4 NOT NULL,
+	id_habilidad_tecnica int4 NOT NULL,
+	id_proyecto int4 NOT NULL,
+	CONSTRAINT habilidadtecnicaproyecto_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE empresa.proyecto_habilidad_blanda (
+	id serial4 NOT NULL,
+	id_habilidad_blanda int4 NOT NULL,
+	id_proyecto int4 NOT NULL,
+	CONSTRAINT habilidadblandaproyecto_pk PRIMARY KEY (id)
+);
