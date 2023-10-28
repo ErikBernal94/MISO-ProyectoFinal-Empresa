@@ -19,8 +19,11 @@ const proyecto = sequelize.define('proyecto', {
         type: DataTypes.STRING
     },
     id_estado: {
-        type: DataTypes.STRING
-    }
+        type: DataTypes.INTEGER
+    },
+    id_empresa: {
+      type: DataTypes.INTEGER
+  }
   }, {
     tableName: 'proyecto',
     timestamps: false,
@@ -29,6 +32,9 @@ const proyecto = sequelize.define('proyecto', {
 
   estado.hasOne(proyecto, {foreignKey: 'id_estado'});
   proyecto.belongsTo(estado, {foreignKey: 'id_estado'});
+
+  // empresa.hasOne(proyecto, {foreignKey: 'id_empresa'});
+  // proyecto.belongsTo(empresa, {foreignKey: 'id_empresa'});
   
   proyecto.belongsToMany(habilidad_blanda, {
     through: 'habilidadBlandaProyecto',

@@ -8,7 +8,7 @@ class ProyectoLogic {
         return new Promise(async (resolve,reject)=>{
             try {
                 await proyectoData.insertarProyecto(proyecto);
-                resolve('Informacion de candidato actualizada/insertada');    
+                resolve('Informacion de proyecto actualizada/insertada');    
             } catch (error) {
                 reject(error);
             }

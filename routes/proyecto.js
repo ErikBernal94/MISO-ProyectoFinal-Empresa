@@ -10,6 +10,7 @@ const schemaPost = Joi.object({
     habilidadesBlandas: Joi.array().required(),
     habilidadesTecnicas: Joi.array().required(),
     id_estado: Joi.number().required(),
+    id_empresa: Joi.number().required(),
 });
 
 router.post('/', async function(req, res) {
