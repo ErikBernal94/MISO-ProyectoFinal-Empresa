@@ -21,7 +21,7 @@ const empresa = sequelize.define('empresa', {
   }, {
     tableName: 'empresa',
     timestamps: false,
-    schema: 'metadata'
+    schema: 'empresa'
 });
 
 usuario.hasOne(empresa, {foreignKey: 'id_usuario'});
@@ -44,12 +44,12 @@ areaNegocio.belongsToMany(empresa, {
 empresa.belongsToMany(ciudad, {
     through: 'ciudadEmpresa',
     foreignKey: 'id_empresa',
-    otherKey: 'id_area_negocio',
+    otherKey: 'id_ciudad',
     as: 'ciudades'
   });
-ciudad.belongsToMany(candidato, {
+ciudad.belongsToMany(empresa, {
     through: 'ciudadEmpresa',
-    foreignKey: 'id_area_negocio',
+    foreignKey: 'id_ciudad',
     otherKey: 'id_empresa'
 });
 

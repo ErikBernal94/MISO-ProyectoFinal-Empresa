@@ -35,7 +35,7 @@ const ciudadEmpresa = sequelize.define('ciudadEmpresa', {
   }, {
     tableName: 'ciudad_empresa',
     timestamps: false,
-    schema: 'metadata'
+    schema: 'empresa'
 });
 
 module.exports = { ciudad , ciudadEmpresa };

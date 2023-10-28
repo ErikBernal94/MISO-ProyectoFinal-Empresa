@@ -35,7 +35,7 @@ const areaNegocioEmpresa = sequelize.define('areaNegocioEmpresa', {
   }, {
     tableName: 'area_negocio_empresa',
     timestamps: false,
-    schema: 'metadata'
+    schema: 'empresa'
 });
 
 module.exports = { areaNegocio , areaNegocioEmpresa};
