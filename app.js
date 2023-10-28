@@ -7,6 +7,7 @@ var cors = require('cors')
 
 var metadataRouter = require('./routes/metadata');
 var healthcheckRouter = require('./routes/healthcheck');
+var validateToken = require('./routes/validate-token')
 
 var app = express();
 
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/empresa/metadata', metadataRouter);
+app.use('/empresa/metadata', validateToken,  metadataRouter);
 // app.use('/evaluacion/pregunta', preguntasRouter);
 app.use('/empresa/healthcheck', healthcheckRouter);
 
