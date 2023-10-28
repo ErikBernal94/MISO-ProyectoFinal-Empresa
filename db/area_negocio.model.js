@@ -20,4 +20,22 @@ const areaNegocio = sequelize.define('areaNegocio', {
     schema: 'metadata'
 });
 
-module.exports = { areaNegocio };
+const areaNegocioEmpresa = sequelize.define('areaNegocioEmpresa', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    id_area_negocio: {
+        type: DataTypes.INTEGER
+    },
+    id_empresa: {
+        type: DataTypes.INTEGER
+    }
+  }, {
+    tableName: 'area_negocio_empresa',
+    timestamps: false,
+    schema: 'metadata'
+});
+
+module.exports = { areaNegocio , areaNegocioEmpresa};

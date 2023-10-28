@@ -20,4 +20,22 @@ const ciudad = sequelize.define('ciudad', {
     schema: 'metadata'
 });
 
-module.exports = { ciudad };
+const ciudadEmpresa = sequelize.define('ciudadEmpresa', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    id_ciudad: {
+        type: DataTypes.INTEGER
+    },
+    id_empresa: {
+        type: DataTypes.INTEGER
+    }
+  }, {
+    tableName: 'ciudad_empresa',
+    timestamps: false,
+    schema: 'metadata'
+});
+
+module.exports = { ciudad , ciudadEmpresa };
