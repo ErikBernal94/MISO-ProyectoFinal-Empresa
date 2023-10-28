@@ -107,6 +107,64 @@ CREATE TABLE metadata.ciudad (
 	CONSTRAINT pais_fk FOREIGN KEY (id_pais) REFERENCES metadata.pais(id)
 );
 
+-- empresa.empresa definition
+
+-- Drop table
+
+-- DROP TABLE empresa.empresa;
+
+CREATE TABLE empresa.empresa (
+	id serial4 NOT NULL,
+	id_usuario int4 NOT NULL,
+	id_tipo_empresa int4 NULL,
+	CONSTRAINT empresa_pk PRIMARY KEY (id)
+);
+
+
+-- empresa.area_negocio_empresa definition
+
+-- Drop table
+
+-- DROP TABLE empresa.area_negocio_empresa;
+
+CREATE TABLE empresa.area_negocio_empresa (
+	id serial4 NOT NULL,
+	id_area_negocio int4 NOT NULL,
+	id_empresa int4 NOT NULL,
+	CONSTRAINT area_negocio_empresa_pk PRIMARY KEY (id)
+);
+
+
+-- empresa.ciudad_empresa definition
+
+-- Drop table
+
+-- DROP TABLE empresa.ciudad_empresa;
+
+CREATE TABLE empresa.ciudad_empresa (
+	id serial4 NOT NULL,
+	id_ciudad int4 NOT NULL,
+	id_empresa int4 NOT NULL,
+	CONSTRAINT ciudad_empresa_pk PRIMARY KEY (id)
+);
+
+
+-- empresa.empresa foreign keys
+
+ALTER TABLE empresa.empresa ADD CONSTRAINT tipoempresa_fk FOREIGN KEY (id_tipo_empresa) REFERENCES metadata.tipo_empresa(id);
+ALTER TABLE empresa.empresa ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES registro.usuarios(id);
+
+
+-- empresa.area_negocio_empresa foreign keys
+
+ALTER TABLE empresa.area_negocio_empresa ADD CONSTRAINT area_negocio_fk FOREIGN KEY (id_area_negocio) REFERENCES metadata.area_negocio(id);
+ALTER TABLE empresa.area_negocio_empresa ADD CONSTRAINT empresa_fk FOREIGN KEY (id_empresa) REFERENCES empresa.empresa(id);
+
+
+-- empresa.ciudad_empresa foreign keys
+
+ALTER TABLE empresa.ciudad_empresa ADD CONSTRAINT ciudad_empresa_fk FOREIGN KEY (id_ciudad) REFERENCES metadata.ciudad(id);
+ALTER TABLE empresa.ciudad_empresa ADD CONSTRAINT empresa_fk FOREIGN KEY (id_empresa) REFERENCES empresa.empresa(id);
 
 
 CREATE TABLE empresa.proyecto (

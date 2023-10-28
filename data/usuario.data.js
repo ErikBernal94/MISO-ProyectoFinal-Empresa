@@ -8,11 +8,12 @@ class UsuarioData{
     obtener(correo){
         return new Promise(async (resolve,reject)=>{
             var usuarioDB = await usuario.findAll({
+                attributes: {exclude: ["contrasena"]},
                 where: {
                   email: correo
                 }
               });
-            resolve(usuarioDB);
+            resolve(usuarioDB[0]);
         });
     }
 }
