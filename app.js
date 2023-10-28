@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/empresa/metadata', validateToken,  metadataRouter);
-app.use('/empresa', empresaRouter);
+app.use('/empresa',validateToken, empresaRouter);
 app.use('/empresa/healthcheck', healthcheckRouter);
 
 
