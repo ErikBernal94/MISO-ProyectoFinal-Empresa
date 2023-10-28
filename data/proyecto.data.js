@@ -3,7 +3,8 @@ const { Op } = require("sequelize");
 const proyectoModel = require("../db/proyecto.model");
 const {rol} = require("../db/rol.model");
 const {habilidad_blanda} = require("../db/habilidad_blanda.model")
-const {habilidad_tecnica} = require("../db/habilidad_tecnica.model")
+const {habilidad_tecnica} = require("../db/habilidad_tecnica.model");
+const { estado } = require("../db/estado.model");
 
 
 class ProyectoData {
@@ -17,7 +18,10 @@ class ProyectoData {
             if (proyectExist.length > 0)reject('El proyecto ya existe')
 
             let [proyectoDB, created] = await proyectoModel.findOrCreate({where: {nombre: proyecto.nombre}, defaults: proyecto});
-            if(!created) reject('Error creando proyecto')           
+            if(!created) reject({
+                error: 'Error creando proyecto',
+                statusCode: 400,
+            })           
                // roles
               let rolesBD = await rol.findAll({where: {id: {[Op.in]: proyecto.rolesProyecto}}});
               for(let rol of rolesBD){
@@ -42,6 +46,39 @@ class ProyectoData {
           
       });
   }
+
+  obtener(){
+    return new Promise(async (resolve,reject)=>{
+        try {
+            var proyectoDB = await proyectoModel.findAll({
+                include: [
+                    {
+                        model: habilidad_blanda,
+                        required: false,
+                        as: "habilidadesBlandas"
+                    },
+                    {
+                        model: habilidad_tecnica,
+                        required: false,
+                        as: "habilidadesTecnicas"
+                    },
+                    {
+                        model: rol,
+                        required: false,
+                        through: {
+                            attributes: []
+                        },
+                        as: "rolesProyecto"
+                    }
+                ]
+            });
+            resolve(proyectoDB);    
+        } catch (error) {
+            reject(error);
+        }
+        
+    });
+}
 }
 
 const proyectoData = new ProyectoData();

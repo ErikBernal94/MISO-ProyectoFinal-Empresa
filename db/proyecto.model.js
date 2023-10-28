@@ -4,7 +4,7 @@ const { estado } = require('./estado.model');
 const { habilidad_blanda } = require('./habilidad_blanda.model');
 const { habilidad_tecnica } = require('./habilidad_tecnica.model');
 const { rol } = require('./rol.model');
-
+const {empresa} = require('./empresa.model')
 
 const proyecto = sequelize.define('proyecto', {
     id: {
@@ -33,8 +33,8 @@ const proyecto = sequelize.define('proyecto', {
   estado.hasOne(proyecto, {foreignKey: 'id_estado'});
   proyecto.belongsTo(estado, {foreignKey: 'id_estado'});
 
-  // empresa.hasOne(proyecto, {foreignKey: 'id_empresa'});
-  // proyecto.belongsTo(empresa, {foreignKey: 'id_empresa'});
+  empresa.hasOne(proyecto, {foreignKey: 'id_empresa'});
+  proyecto.belongsTo(empresa, {foreignKey: 'id_empresa'});
   
   proyecto.belongsToMany(habilidad_blanda, {
     through: 'habilidadBlandaProyecto',

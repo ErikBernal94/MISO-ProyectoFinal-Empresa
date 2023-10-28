@@ -20,5 +20,16 @@ describe('obtener', () =>{
 
         expect(result).toEqual("Informacion de proyecto actualizada/insertada");
     });
+    it('debería obtener proyectos correctamente', async ()=>{
+        jest.spyOn(data, 'obtener').mockResolvedValue({
+            rowCount: 1,
+            rows:[{
+              proyecto:'proyecto'
+            }]
+          });
+        const result = await logic.obtenerTodos();
+
+        expect(result.rowCount).toEqual(1);
+    });
     
 });

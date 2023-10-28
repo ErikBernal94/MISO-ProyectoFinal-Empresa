@@ -3,6 +3,7 @@ const Joi = require('joi');
 var express = require('express');
 
 var router = express.Router();
+
 const schemaPost = Joi.object({
     nombre: Joi.string().min(6).max(200).required(),
     descripcion: Joi.string().max(200),
@@ -15,7 +16,6 @@ const schemaPost = Joi.object({
 
 router.post('/', async function(req, res) {
     try {
-        console.log('etdf');
         const { error } = schemaPost.validate(req.body)
         if (error) {
             return res.status(400).json(
@@ -24,13 +24,28 @@ router.post('/', async function(req, res) {
         }
         const proyecto = req.body
         var result = await logicaProyecto.crear(proyecto);
+        console.log(result);
+        if(!result){
+            res.status(400).send();    
+        }
+        res.status(201).send(result);    
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error);
+    }
+});
+
+router.get('/', async function(req, res) {
+    try {
+        var result = await logicaProyecto.obtenerTodos();
+        console.log(result);
         if(!result){
             res.status(400).send();    
         }
         res.status(200).send(result);    
     } catch (error) {
-        console.group(error);
-        res.status(500).send(error);
+        console.log(error);
+        res.status(400).send(error);
     }
 });
 
