@@ -7,6 +7,7 @@ var cors = require('cors')
 
 var metadataRouter = require('./routes/metadata');
 var healthcheckRouter = require('./routes/healthcheck');
+const proyectoRouter = require('./routes/proyecto');
 var validateToken = require('./routes/validate-token')
 
 var app = express();
@@ -25,8 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/empresa/metadata', validateToken,  metadataRouter);
 // app.use('/evaluacion/pregunta', preguntasRouter);
 app.use('/empresa/healthcheck', healthcheckRouter);
-
-
+app.use('/empresa/proyecto', validateToken, proyectoRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

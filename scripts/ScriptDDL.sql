@@ -106,3 +106,34 @@ CREATE TABLE metadata.ciudad (
 	CONSTRAINT ciudad_pk PRIMARY KEY (id),
 	CONSTRAINT pais_fk FOREIGN KEY (id_pais) REFERENCES metadata.pais(id)
 );
+
+
+
+CREATE TABLE empresa.proyecto (
+	id serial4 NOT NULL,
+	nombre varchar NOT NULL,
+	descripcion varchar NULL,
+	id_estado int4 NOT NULL,
+	CONSTRAINT proyecto_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE empresa.proyecto_habilidad_tecnica (
+	id serial4 NOT NULL,
+	id_habilidad_tecnica int4 NOT NULL,
+	id_proyecto int4 NOT NULL,
+	CONSTRAINT habilidadtecnicaproyecto_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE empresa.proyecto_habilidad_tecnica (
+	id serial4 NOT NULL,
+	id_habilidad_tecnica int4 NOT NULL,
+	id_proyecto int4 NOT NULL,
+	CONSTRAINT habilidadtecnicaproyecto_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE empresa.proyecto_habilidad_blanda (
+	id serial4 NOT NULL,
+	id_habilidad_blanda int4 NOT NULL,
+	id_proyecto int4 NOT NULL,
+	CONSTRAINT habilidadblandaproyecto_pk PRIMARY KEY (id)
+);

@@ -4,9 +4,7 @@ const { pais } = require("../db/pais.model");
 const { tipoEmpresa } = require("../db/tipo_empresa.model");
 
 class MetadataData {
-    constructor() {
-
-    }
+    constructor() {}
 
     obtener(language) {
         const filter_negocio = `descripcion${language ? '_' + language : ''}`;
