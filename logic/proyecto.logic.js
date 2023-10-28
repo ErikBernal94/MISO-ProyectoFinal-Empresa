@@ -16,6 +16,19 @@ class ProyectoLogic {
         })
     }
 
+    obtenerTodos(){
+        return new Promise(async (resolve,reject)=>{
+            try {
+                var proyecto = await proyectoData.obtener();
+                console.log(proyecto)
+                resolve(proyecto);    
+            } catch (error) {
+                reject(error);
+            }
+            
+        })
+    }
+
 }
 
 const proyectoLogic = new ProyectoLogic();
