@@ -16,10 +16,10 @@ class ProyectoLogic {
         })
     }
 
-    obtenerTodos(){
+    obtenerTodos(idEmpresa){
         return new Promise(async (resolve,reject)=>{
             try {
-                var proyecto = await proyectoData.obtener();
+                var proyecto = await proyectoData.obtener(idEmpresa);
                 console.log(proyecto)
                 resolve(proyecto);    
             } catch (error) {
