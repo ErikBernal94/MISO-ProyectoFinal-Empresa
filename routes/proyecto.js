@@ -35,9 +35,10 @@ router.post('/', async function(req, res) {
     }
 });
 
-router.get('/', async function(req, res) {
+router.get('/:idEmpresa', async function(req, res) {
     try {
-        var result = await logicaProyecto.obtenerTodos();
+        const { idEmpresa } = req.params
+        var result = await logicaProyecto.obtenerTodos(idEmpresa);
         console.log(result);
         if(!result){
             res.status(400).send();    
