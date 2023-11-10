@@ -1,44 +1,65 @@
 const sequelize = require("../db/db")
 const { Op } = require("sequelize");
 const proyectoModel = require("../db/proyecto.model");
-const empresaModel = require("../db/empresa.model");
-const {rol} = require("../db/rol.model");
-const {habilidad_blanda} = require("../db/habilidad_blanda.model")
-const {habilidad_tecnica} = require("../db/habilidad_tecnica.model");
+const {rol, proyectoRol} = require("../db/rol.model");
+const {habilidad_blanda, habilidad_blanda_proyecto} = require("../db/habilidad_blanda.model")
+const {habilidad_tecnica, habilidad_tecnica_proyecto} = require("../db/habilidad_tecnica.model");
 const { estado } = require("../db/estado.model");
+const {empresa} = require("../db/empresa.model")
 
 
 class ProyectoData {
     constructor(){}
 
     async insertarProyecto(proyecto){
-      // const t = await sequelize.transaction();
       return new Promise(async (resolve, reject)=>{
           try {
-            let proyectExist = await proyectoModel.findAll({where: {nombre: proyecto.nombre}});
+            let proyectExist = await proyectoModel.findAll({where: {nombre: proyecto.nombre, id_empresa: proyecto.id_empresa}});
             if (proyectExist.length > 0)reject('El proyecto ya existe')
 
             let [proyectoDB, created] = await proyectoModel.findOrCreate({where: {nombre: proyecto.nombre}, defaults: proyecto});
             if(!created) reject({
                 error: 'Error creando proyecto',
                 statusCode: 400,
-            })           
-               // roles
-              let rolesBD = await rol.findAll({where: {id: {[Op.in]: proyecto.rolesProyecto}}});
-              for(let rol of rolesBD){
-                  await proyectoDB.addRolesProyecto(rol);
-              }
-              //habilidades blandas
-              let habilidadesBlandasDB = await habilidad_blanda.findAll({where: {id: {[Op.in]: proyecto.habilidadesBlandas}}});
-              for(let hb of habilidadesBlandasDB){
-                  await proyectoDB.addHabilidadesBlanda(hb);
-              }
-              //habilidades tecnicas
-              let habilidadesTecnicasDB = await habilidad_tecnica.findAll({where: {id: {[Op.in]: proyecto.habilidadesBlandas}}});
-              for(let hb of habilidadesTecnicasDB){
-                  await proyectoDB.addHabilidadesTecnica(hb);
-              }
-              resolve(proyectoDB);    
+            })
+            
+            for(let rolProyecto of proyecto.rolesProyecto) {       
+                let rolesBD =  await proyectoDB.addRolesProyecto(rolProyecto.id_rol);             
+                let habilidadesBlandasDB = await habilidad_blanda.findAll({where: {id: {[Op.in]: rolProyecto.habilidadesBlandas}}});
+                let habilidadesTecnicasDB = await habilidad_tecnica.findAll({where: {id: {[Op.in]: rolProyecto.habilidadesTecnicas}}});
+
+                if(habilidadesBlandasDB.length === 0) reject('Las habilidades blandas no existen')
+                if(habilidadesTecnicasDB.length === 0) reject('Las habilidades blandas no existen')
+
+                const proyectoRol = rolesBD[0].dataValues
+                for(let hb of rolProyecto.habilidadesBlandas){
+                    let [rolHB, created] = await habilidad_blanda_proyecto.findOrCreate({
+                        where: { id_proyecto_rol: proyectoRol.id, id_habilidad_blanda: hb },
+                        defaults: {
+                            id_proyecto_rol: proyectoRol.id,
+                            id_habilidad_blanda: hb
+                        }
+                    });
+                    if(!created) reject({
+                        error: 'Error creando proyecto',
+                        statusCode: 400,
+                    })
+                }
+                for(let ht of rolProyecto.habilidadesTecnicas){
+                    let [rolHB, created] = await habilidad_tecnica_proyecto.findOrCreate({
+                        where: { id_proyecto_rol: proyectoRol.id, id_habilidad_tecnica: ht},
+                        defaults: {
+                            id_proyecto_rol: proyectoRol.id,
+                            id_habilidad_tecnica: ht
+                        }
+                    });
+                    if(!created)reject({
+                        error: 'Error creando proyecto',
+                        statusCode: 400,
+                    })                    
+                }                
+            }
+            resolve(proyectoDB);    
           } catch (error) {
               console.log(error);
               reject('Error creando proyecto')
@@ -51,20 +72,10 @@ class ProyectoData {
   obtener(idEmpresa){
     return new Promise(async (resolve,reject)=>{
         try {
-            let empresaExiste = await proyectoModel.findAll({where: {id: idEmpresa}});
+            let empresaExiste = await empresa.findAll({where: {id: idEmpresa}});
             if (empresaExiste.length <= 0)reject('la empresa no existe')
             var proyectoDB = await proyectoModel.findAll({
                 include: [
-                    {
-                        model: habilidad_blanda,
-                        required: false,
-                        as: "habilidadesBlandas"
-                    },
-                    {
-                        model: habilidad_tecnica,
-                        required: false,
-                        as: "habilidadesTecnicas"
-                    },
                     {
                         model: rol,
                         required: false,
@@ -75,7 +86,7 @@ class ProyectoData {
                     }
                 ],
                 where: {id_empresa:idEmpresa}
-                });
+            });
             console.log(proyectoDB)
             resolve(proyectoDB);    
         } catch (error) {
