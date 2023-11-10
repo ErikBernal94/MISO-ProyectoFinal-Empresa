@@ -36,28 +36,28 @@ const proyecto = sequelize.define('proyecto', {
   empresa.hasOne(proyecto, {foreignKey: 'id_empresa'});
   proyecto.belongsTo(empresa, {foreignKey: 'id_empresa'});
   
-  proyecto.belongsToMany(habilidad_blanda, {
-    through: 'habilidadBlandaProyecto',
-    foreignKey: 'id_proyecto',
-    otherKey: 'id_habilidad_blanda',
-    as: 'habilidadesBlandas'
-  });
-  habilidad_blanda.belongsToMany(proyecto, {
-    through: 'habilidadBlandaProyecto',
-    foreignKey: 'id_habilidad_blanda',
-    otherKey: 'id_proyecto'
-  });
-  proyecto.belongsToMany(habilidad_tecnica, {
-    through: 'habilidadTecnicaProyecto',
-    foreignKey: 'id_proyecto',
-    otherKey: 'id_habilidad_tecnica',
-    as: 'habilidadesTecnicas'
-  });
-  habilidad_tecnica.belongsToMany(proyecto, {
-    through: 'habilidadTecnicaProyecto',
-    foreignKey: 'id_habilidad_tecnica',
-    otherKey: 'id_proyecto'
-  });
+  // proyecto.belongsToMany(habilidad_blanda, {
+  //   through: 'habilidadBlandaProyecto',
+  //   foreignKey: 'id_proyecto',
+  //   otherKey: 'id_habilidad_blanda',
+  //   as: 'habilidadesBlandas'
+  // });
+  // habilidad_blanda.belongsToMany(proyecto, {
+  //   through: 'habilidadBlandaProyecto',
+  //   foreignKey: 'id_habilidad_blanda',
+  //   otherKey: 'id_proyecto'
+  // });
+  // proyecto.belongsToMany(habilidad_tecnica, {
+  //   through: 'habilidadTecnicaProyecto',
+  //   foreignKey: 'id_proyecto',
+  //   otherKey: 'id_habilidad_tecnica',
+  //   as: 'habilidadesTecnicas'
+  // });
+  // habilidad_tecnica.belongsToMany(proyecto, {
+  //   through: 'habilidadTecnicaProyecto',
+  //   foreignKey: 'id_habilidad_tecnica',
+  //   otherKey: 'id_proyecto'
+  // });
   proyecto.belongsToMany(rol, {
     through: 'proyectoRol',
     foreignKey: 'id_proyecto',

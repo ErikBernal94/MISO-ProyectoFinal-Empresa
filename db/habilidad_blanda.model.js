@@ -26,7 +26,7 @@ const habilidad_blanda_proyecto = sequelize.define('habilidadBlandaProyecto', {
         autoIncrement: true,
         primaryKey: true
     },
-    id_proyecto: {
+    id_proyecto_rol: {
         type: DataTypes.STRING
     },
     id_habilidad_blanda: {
