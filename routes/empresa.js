@@ -53,6 +53,14 @@ router.post('/', async function(req, res) {
     
 });
 
+router.get('/', async function(req, res) {
+    var result = await logicaempresa.obtenerTodasEmpresas();
+    if(!result){
+        res.status(400).send();    
+    }
+    res.status(200).send(result);
+});
+
 module.exports = router;
 
 
