@@ -40,6 +40,18 @@ class EmpresaLogic {
         })
     }
 
+    obtenerTodasEmpresas(){
+        return new Promise(async (resolve,reject)=>{
+            try {
+                var empresa = await empresaData.obtenerTodas();
+                resolve(empresa);    
+            } catch (error) {
+                reject(error);
+            }
+            
+        })
+    }
+
 }
 
 const empresa = new EmpresaLogic()
