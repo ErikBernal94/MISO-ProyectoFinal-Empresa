@@ -8,8 +8,6 @@ const schemaPost = Joi.object({
     nombre: Joi.string().min(6).max(200).required(),
     descripcion: Joi.string().max(200),
     rolesProyecto: Joi.array().required(),
-    habilidadesBlandas: Joi.array().required(),
-    habilidadesTecnicas: Joi.array().required(),
     id_estado: Joi.number().required(),
     id_empresa: Joi.number().required(),
 });
