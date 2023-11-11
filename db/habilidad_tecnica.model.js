@@ -26,7 +26,7 @@ const habilidad_tecnica_proyecto = sequelize.define('habilidadTecnicaProyecto', 
         autoIncrement: true,
         primaryKey: true
     },
-    id_proyecto: {
+    id_proyecto_rol: {
         type: DataTypes.STRING
     },
     id_habilidad_tecnica: {
