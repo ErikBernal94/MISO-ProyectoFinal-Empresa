@@ -1,6 +1,6 @@
 const sequelize = require("../db/db")
 const { Op } = require("sequelize");
-const proyectoModel = require("../db/proyecto.model");
+const { proyecto } = require("../db/proyecto.model");
 const {rol, proyectoRol} = require("../db/rol.model");
 const {habilidad_blanda, habilidad_blanda_proyecto} = require("../db/habilidad_blanda.model")
 const {habilidad_tecnica, habilidad_tecnica_proyecto} = require("../db/habilidad_tecnica.model");
@@ -74,7 +74,7 @@ class ProyectoData {
         try {
             let empresaExiste = await empresa.findAll({where: {id: idEmpresa}});
             if (empresaExiste.length <= 0)reject('la empresa no existe')
-            var proyectoDB = await proyectoModel.findAll({
+            var proyectoDB = await proyecto.findAll({
                 include: [
                     {
                         model: rol,
