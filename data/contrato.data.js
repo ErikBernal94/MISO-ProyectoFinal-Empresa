@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { contrato } = require("../db/contrato.model");
 const usuario = require("../db/usuario.model");
+const { evaluacion_desempeño } = require("../db/evaluacion_desempeño.model");
 
 class ContratoData{
     constructor() {
@@ -50,6 +51,9 @@ class ContratoData{
                             model: usuario,
                             attributes: {exclude: ["contrasena"]},
                             as: 'empresa'
+                        }, 
+                        {
+                            model: evaluacion_desempeño
                         }
                     ]
                 })
@@ -71,6 +75,9 @@ class ContratoData{
                             model: usuario,
                             attributes: {exclude: ["contrasena"]},
                             as: 'empleado'
+                        }, 
+                        {
+                            model: evaluacion_desempeño
                         }
                     ]
                 })
