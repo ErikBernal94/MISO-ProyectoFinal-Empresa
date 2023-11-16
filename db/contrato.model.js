@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require("./db")
+const sequelize = require("./db");
+const { evaluacion_desempeño } = require('./evaluacion_desempeño.model');
+const usuario = require('./usuario.model');
 
 
 const contrato = sequelize.define('contrato', {
@@ -34,5 +36,12 @@ const contrato = sequelize.define('contrato', {
     timestamps: false,
     schema: 'empresa'
 });
+
+contrato.hasOne(evaluacion_desempeño, {foreignKey: 'id_contrato'});
+evaluacion_desempeño.belongsTo(contrato, {foreignKey: 'id_contrato'});
+usuario.hasOne(contrato, {foreignKey: 'id_usuario_empresa'})
+contrato.belongsTo(usuario, {foreignKey: 'id_usuario_empresa', as: 'empresa'})
+usuario.hasOne(contrato, {foreignKey: 'id_usuario_empleado'})
+contrato.belongsTo(usuario, {foreignKey: 'id_usuario_empleado', as: 'empleado'})
 
 module.exports = { contrato };

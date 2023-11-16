@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
 const { contrato } = require("../db/contrato.model");
+const usuario = require("../db/usuario.model");
 
 class ContratoData{
     constructor() {
@@ -35,6 +36,49 @@ class ContratoData{
                 reject(error);
             }
             
+        });
+    }
+
+    obtenerPorIdEmpleado(idEmpleado){
+        return new Promise(async (resolve, reject)=>{
+            try {
+                let contratoDB = await contrato.findAll({
+                    where: {id_usuario_empleado: idEmpleado},
+                    attributes: {exclude: ["id_usuario_empresa", "id_usuario_empleado", "id_proyecto", "id_rol"]},
+                    include: [
+                        {
+                            model: usuario,
+                            attributes: {exclude: ["contrasena"]},
+                            as: 'empresa'
+                        }
+                    ]
+                })
+                resolve(contratoDB);    
+            } catch (error) {
+                console.log(error);
+                reject(error);
+            }
+        });
+    }
+    obtenerPorIdEmpresa(idEmpresa){
+        return new Promise(async (resolve, reject)=>{
+            try {
+                let contratoDB = await contrato.findAll({
+                    where: {id_usuario_empresa: idEmpresa},
+                    attributes: {exclude: ["id_usuario_empresa", "id_usuario_empleado", "id_proyecto", "id_rol"]},
+                    include: [
+                        {
+                            model: usuario,
+                            attributes: {exclude: ["contrasena"]},
+                            as: 'empleado'
+                        }
+                    ]
+                })
+                resolve(contratoDB);    
+            } catch (error) {
+                console.log(error);
+                reject(error);
+            }
         });
     }
 }

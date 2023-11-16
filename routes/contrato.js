@@ -34,6 +34,24 @@ router.post('/', async function(req, res) {
     
 });
 
+router.get('/:idTipoUsuario/:idUsuario', async function(req, res) {
+    try {
+        const { idTipoUsuario, idUsuario } = req.params
+        let result = null;
+        if(idTipoUsuario == 2)
+            result = await logicacontrato.obtenerPorIdEmpleado(idUsuario);
+        else if(idTipoUsuario == 3)
+            result = await logicacontrato.obtenerPorIdEmpresa(idUsuario);
+        if(!result){
+            res.status(400).send();    
+        }
+        res.status(200).json(result);    
+    } catch (error) {
+        res.status(error.codigoError).send(error.mensaje);
+    }
+    
+});
+
 module.exports = router;
 
 
