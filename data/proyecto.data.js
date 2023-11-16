@@ -102,8 +102,8 @@ class ProyectoData {
 
     obtenerPorId(idProyecto){
         return new Promise(async (resolve,reject)=>{
-            let proyecto = await proyectoModel.findByPk(idProyecto);
-            resolve(proyecto);
+            let proyectoDB = await proyecto.findByPk(idProyecto);
+            resolve(proyectoDB);
         });
     }
 }
