@@ -36,7 +36,7 @@ spec:
       #        configurado en K8s 
       containers:
         - name: job-cloudbuild
-          image: us-central1-docker.pkg.dev/abc-jobs-cicd/my-repository-empresa/job-cloudbuild:293cd45
+          image: us-central1-docker.pkg.dev/abc-jobs-cicd/my-repository-empresa/job-cloudbuild:569acff
           resources:
             requests:
               memory: "64Mi"
@@ -111,6 +111,13 @@ spec:
         backend:
           service:
             name: servicio-empresa
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: /evaluacion
+        backend:
+          service:
+            name: servicio-evaluacion
             port: 
               number: 80
       

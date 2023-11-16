@@ -8,8 +8,6 @@ const schemaPost = Joi.object({
     nombre: Joi.string().min(6).max(200).required(),
     descripcion: Joi.string().max(200),
     rolesProyecto: Joi.array().required(),
-    habilidadesBlandas: Joi.array().required(),
-    habilidadesTecnicas: Joi.array().required(),
     id_estado: Joi.number().required(),
     id_empresa: Joi.number().required(),
 });
@@ -35,9 +33,10 @@ router.post('/', async function(req, res) {
     }
 });
 
-router.get('/', async function(req, res) {
+router.get('/:idEmpresa', async function(req, res) {
     try {
-        var result = await logicaProyecto.obtenerTodos();
+        const { idEmpresa } = req.params
+        var result = await logicaProyecto.obtenerTodos(idEmpresa);
         console.log(result);
         if(!result){
             res.status(400).send();    

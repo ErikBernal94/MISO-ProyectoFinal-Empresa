@@ -5,6 +5,7 @@ const { areaNegocio } = require("../db/area_negocio.model");
 const { ciudad } = require("../db/ciudad.model");
 const { pais } = require("../db/pais.model");
 const { empresa } = require("../db/empresa.model");
+
 class EmpresaData{
     constructor() {
 
@@ -78,6 +79,30 @@ class EmpresaData{
                 resolve(empresaDB);    
             } catch (error) {
                 console.log(error);
+                reject(error);
+            }
+            
+        });
+    }
+
+    obtenerTodas(){
+        return new Promise(async (resolve,reject)=>{
+            try {
+                var empresaDB = await empresa.findAll({
+                    attributes: {exclude: ["id_usuario"]},
+                    through: {
+                        attributes: []
+                    },
+                    include: [
+                        {
+                            model: usuario,
+                            required: false,
+                            attributes: {exclude: ["contrasena"]},
+                        },  
+                    ]
+                });
+                resolve(empresaDB);    
+            } catch (error) {
                 reject(error);
             }
             
