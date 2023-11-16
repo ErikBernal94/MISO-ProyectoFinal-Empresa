@@ -34,16 +34,4 @@ proyecto.belongsTo(estado, {foreignKey: 'id_estado'});
 empresa.hasOne(proyecto, {foreignKey: 'id_empresa', as: 'proyectos'});
 proyecto.belongsTo(empresa, {foreignKey: 'id_empresa'});
 
-proyecto.belongsToMany(rol, {
-  through: 'proyectoRol',
-  foreignKey: 'id_proyecto',
-  otherKey: 'id_rol',
-  as: 'rolesProyecto'
-});
-rol.belongsToMany(proyecto, {
-  through: 'proyectoRol',
-  foreignKey: 'id_rol',
-  otherKey: 'id_proyecto'
-});
-
 module.exports = { proyecto };
