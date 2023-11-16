@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require("./db");
 const { habilidad_blanda } = require('./habilidad_blanda.model');
 const { habilidad_tecnica } = require('./habilidad_tecnica.model');
-const proyecto = require('./proyecto.model');
+const {proyecto} = require('./proyecto.model');
 
 const rol = sequelize.define('rol', {
     id: {
@@ -62,6 +62,16 @@ habilidad_tecnica.belongsToMany(proyectoRol, {
     foreignKey: 'id_habilidad_tecnica',
     otherKey: 'id_proyecto_rol'
 });
-
+proyecto.belongsToMany(rol, {
+    through: 'proyectoRol',
+    foreignKey: 'id_proyecto',
+    otherKey: 'id_rol',
+    as: 'rolesProyecto'
+  });
+rol.belongsToMany(proyecto, {
+    through: 'proyectoRol',
+    foreignKey: 'id_rol',
+    otherKey: 'id_proyecto'
+});
 
 module.exports = { rol , proyectoRol};
