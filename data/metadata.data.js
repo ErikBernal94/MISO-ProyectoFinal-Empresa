@@ -1,6 +1,7 @@
 const { areaNegocio } = require("../db/area_negocio.model");
 const { ciudad } = require("../db/ciudad.model");
 const { pais } = require("../db/pais.model");
+const { rol } = require("../db/rol.model");
 const { tipoEmpresa } = require("../db/tipo_empresa.model");
 
 class MetadataData {
@@ -26,6 +27,13 @@ class MetadataData {
                     }) 
             }
             resolve(metadata);
+        });
+    }
+
+    obtenerRol(idRol){
+        return new Promise(async (resolve,reject)=>{
+            let rolDB = await rol.findByPk(idRol);
+            resolve(rolDB);
         });
     }
 }
