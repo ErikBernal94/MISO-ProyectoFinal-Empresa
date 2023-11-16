@@ -96,7 +96,16 @@ class ProyectoData {
         }
         
     });
-}
+
+    
+    }
+
+    obtenerPorId(idProyecto){
+        return new Promise(async (resolve,reject)=>{
+            let proyecto = await proyectoModel.findByPk(idProyecto);
+            resolve(proyecto);
+        });
+    }
 }
 
 const proyectoData = new ProyectoData();

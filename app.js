@@ -9,6 +9,7 @@ var metadataRouter = require('./routes/metadata');
 var healthcheckRouter = require('./routes/healthcheck');
 var empresaRouter = require('./routes/empresa');
 const proyectoRouter = require('./routes/proyecto');
+const contratoRouter = require('./routes/contrato');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/empresa/metadata', metadataRouter);
 app.use('/empresa', empresaRouter);
 app.use('/empresa/healthcheck', healthcheckRouter);
 app.use('/empresa/proyecto',  proyectoRouter);
+app.use('/empresa/contrato',  contratoRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
