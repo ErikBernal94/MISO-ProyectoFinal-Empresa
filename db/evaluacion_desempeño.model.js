@@ -15,7 +15,7 @@ const evaluacion_desempeño = sequelize.define('evaluacion_desempeño', {
         type: DataTypes.INTEGER
     }
   }, {
-    tableName: 'evaluacion_desempeño',
+    tableName: 'evaluacion_desempeno',
     timestamps: false,
     schema: 'evaluacion'
 });
