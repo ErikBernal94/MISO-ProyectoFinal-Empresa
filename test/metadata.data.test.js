@@ -4,6 +4,9 @@ const data = require('../data/metadata.data');
 jest.mock("../db/area_negocio.model");
 jest.mock("../db/pais.model");
 jest.mock("../db/tipo_empresa.model");
+jest.mock("../db/empresa.model");
+jest.mock("../db/proyecto.model");
+jest.mock("../db/rol.model");
 
 const metadata = {
     areas_negocio: [
