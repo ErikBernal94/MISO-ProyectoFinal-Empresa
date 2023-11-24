@@ -57,7 +57,12 @@ class ContratoData{
                         }
                     ]
                 })
-                resolve(contratoDB);    
+                let contratoUnico = [];
+                contratoDB.forEach(c=>{
+                    if(!contratoUnico.some(cu => cu.id == c.id))
+                        contratoUnico.push(c);
+                });
+                resolve(contratoUnico);    
             } catch (error) {
                 console.log(error);
                 reject(error);
@@ -81,7 +86,12 @@ class ContratoData{
                         }
                     ]
                 })
-                resolve(contratoDB);    
+                let contratoUnico = [];
+                contratoDB.forEach(c=>{
+                    if(!contratoUnico.some(cu => cu.id == c.id))
+                        contratoUnico.push(c);
+                });
+                resolve(contratoUnico);  
             } catch (error) {
                 console.log(error);
                 reject(error);
