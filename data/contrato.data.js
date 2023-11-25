@@ -24,11 +24,14 @@ class ContratoData{
     insertar(contratoInput){
         return new Promise(async (resolve, reject)=>{
             try {
+                const currentDate = new Date();
                 let contratoDB = await contrato.create({
                     id_usuario_empleado: contratoInput.idUsuarioEmpleado, 
                     id_usuario_empresa: contratoInput.idUsuarioEmpresa, 
                     id_rol: contratoInput.idRol, 
                     id_proyecto: contratoInput.idProyecto,
+                    fecha_inicio: new Date(),
+                    fecha_fin: currentDate.setFullYear(currentDate.getFullYear() + 1),
                     activo: true 
                 })
                 resolve(contratoDB);    
